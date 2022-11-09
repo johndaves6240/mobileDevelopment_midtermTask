@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
 
+import 'Settings.dart';
+
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+  static String routeName = "/dashboard";
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  int _numberOfClicks = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("TEST1"),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, Settings.routeName);
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(right: 15.0),
+              child: Icon(Icons.settings, size: 30),
+            ),
+          )
+        ],
       ),
       body: Center(
-        child: Text("clicked times: $_numberOfClicks"),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _numberOfClicks++;
-          });
-        },
-        child: const Icon(Icons.add),
+        child: Text("Dashboard"),
       ),
     );
   }
