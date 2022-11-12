@@ -1,7 +1,5 @@
 // ignore_for_file: file_names, unused_import, use_key_in_widget_constructors, avoid_unnecessary_containers, sized_box_for_whitespace
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:midterm_task/screens/LoginScreen.dart';
 import 'package:midterm_task/widget/PasswordField.dart';

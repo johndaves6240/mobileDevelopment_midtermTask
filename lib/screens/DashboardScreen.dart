@@ -1,22 +1,32 @@
 // ignore_for_file: file_names, must_be_immutable, prefer_typing_uninitialized_variables, prefer_const_constructors, duplicate_ignore
 
+import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:midterm_task/screens/LoginScreen.dart';
 
 import 'Settings.dart';
 
 class DashboardScreen extends StatefulWidget {
   static String routeName = "/dashboard";
-  var email;
-  DashboardScreen({Key? mykey, this.email}) : super(key: mykey);
+
+  const DashboardScreen({super.key, required this.text});
+  final String text;
+
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State<DashboardScreen> createState() => _DashboardScreenState(this.text);
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  final String text;
+  _DashboardScreenState(this.text);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("Dashboard"),
+        automaticallyImplyLeading: false,
         actions: [
           GestureDetector(
             onTap: () {
@@ -29,9 +39,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
           )
         ],
       ),
-      // ignore: prefer_const_constructors
       body: Center(
-        child: Text("Dashboard"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text("Welcome" + text.toString())],
+        ),
       ),
     );
   }
