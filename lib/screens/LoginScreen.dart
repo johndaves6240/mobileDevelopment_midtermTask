@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_typing_uninitialized_variables, avoid_unnecessary_containers, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 import 'package:midterm_task/screens/DashboardScreen.dart';
 import 'package:midterm_task/screens/SignupScreen.dart';
@@ -18,6 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool obscurePassword = true;
+  var email;
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -51,8 +55,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: "Login",
                       iconData: Icons.login,
                       onPress: () {
-                        Navigator.pushReplacementNamed(
-                            context, DashboardScreen.routeName);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DashboardScreen(
+                                    email: emailController.text)));
                       },
                     ),
                     const SizedBox(

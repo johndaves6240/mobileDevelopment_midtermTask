@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 
 class SecondaryButton extends StatelessWidget {
@@ -5,6 +7,7 @@ class SecondaryButton extends StatelessWidget {
   final IconData iconData;
   final VoidCallback onPress;
 
+  // ignore: use_key_in_widget_constructors
   SecondaryButton(
       {required this.text, required this.iconData, required this.onPress});
   @override
