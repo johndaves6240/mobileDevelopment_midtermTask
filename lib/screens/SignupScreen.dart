@@ -83,7 +83,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       height: 20.0,
                     ),
                     SecondaryButton(
-                      text: "Login",
+                      text: "Back to Login",
                       iconData: Icons.login,
                       onPress: () {
                         Navigator.pushNamed(context, LoginScreen.routeName);
