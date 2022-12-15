@@ -1,8 +1,9 @@
-// ignore_for_file: file_names, unused_import, use_key_in_widget_constructors
+// ignore_for_file: file_names, unused_import, use_key_in_widget_constructors, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:midterm_task/screens/DashboardScreen.dart';
 import 'package:midterm_task/screens/LoginScreen.dart';
+import 'package:midterm_task/services/AuthServices.dart';
 
 class Settings extends StatefulWidget {
   static String routeName = "/settings";
@@ -12,6 +13,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,9 +21,8 @@ class _SettingsState extends State<Settings> {
         title: Text("Settings"),
         actions: [
           GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  LoginScreen.routeName, (Route<dynamic> route) => false);
+            onTap: () async {
+              await _authService.logout();
             },
             child: const Padding(
               padding: EdgeInsets.only(right: 15.0),

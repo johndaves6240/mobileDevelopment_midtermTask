@@ -1,7 +1,10 @@
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, library_private_types_in_public_api, file_names, unused_import, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:midterm_task/screens/DashboardScreen.dart';
 import 'package:midterm_task/screens/SignupScreen.dart';
+import 'package:midterm_task/services/AuthServices.dart';
 import 'package:midterm_task/widget/CustomTextField.dart';
 import 'package:midterm_task/widget/PasswordField.dart';
 import 'package:midterm_task/widget/PrimaryButton.dart';
@@ -17,6 +20,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  AuthService _authService = AuthService();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool obscurePassword = true;
@@ -54,12 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         text: "Login",
                         iconData: Icons.login,
                         onPress: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (_) {
-                              return DashboardScreen(
-                                  text: emailController.text);
-                            },
-                          ));
+                          loginWithProvider();
                         }),
                     const SizedBox(
                       height: 20.0,
@@ -98,5 +97,12 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       obscurePassword = !obscurePassword;
     });
+  }
+
+  loginWithProvider() async {
+    try {
+      var user = await _authService.signInWithGoogle();
+      Navigator.pushReplacementNamed(context, DashboardScreen.routeName);
+    } catch (e) {}
   }
 }
