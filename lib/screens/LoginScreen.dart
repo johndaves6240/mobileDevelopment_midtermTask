@@ -1,10 +1,12 @@
-// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, library_private_types_in_public_api, file_names, unused_import, use_key_in_widget_constructors
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, library_private_types_in_public_api, file_names, unused_import, use_key_in_widget_constructors, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:midterm_task/models/StorageItem.dart';
 import 'package:midterm_task/screens/DashboardScreen.dart';
 import 'package:midterm_task/screens/SignupScreen.dart';
 import 'package:midterm_task/services/AuthServices.dart';
+import 'package:midterm_task/services/StorageService.dart';
 import 'package:midterm_task/widget/CustomTextField.dart';
 import 'package:midterm_task/widget/PasswordField.dart';
 import 'package:midterm_task/widget/PrimaryButton.dart';
@@ -21,6 +23,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  StorageService _storageService = StorageService();
   AuthService _authService = AuthService();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -62,6 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           iconData: Icons.login,
                           onPress: () {
                             loginWithProvider();
+                            // Navigator.pushReplacementNamed(
+                            //     context, DashboardScreen.routeName);
                           }),
                       const SizedBox(
                         height: 20.0,
@@ -109,7 +114,10 @@ class _LoginScreenState extends State<LoginScreen> {
         isLogginIn = true;
       });
       var user = await _authService.signInWithGoogle();
-      // ignore: use_build_context_synchronously
+      var accessToken =
+          StorageItem("accessToken", user.credential?.accessToken as String);
+      await _storageService.saveData(accessToken);
+
       Navigator.pushReplacementNamed(context, DashboardScreen.routeName);
     } catch (e) {}
 

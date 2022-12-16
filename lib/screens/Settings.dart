@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:midterm_task/screens/DashboardScreen.dart';
 import 'package:midterm_task/screens/LoginScreen.dart';
 import 'package:midterm_task/services/AuthServices.dart';
+import 'package:midterm_task/services/StorageService.dart';
 
 class Settings extends StatefulWidget {
   static String routeName = "/settings";
@@ -13,6 +14,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  StorageService _storageService = StorageService();
   AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,10 @@ class _SettingsState extends State<Settings> {
           GestureDetector(
             onTap: () async {
               await _authService.logout();
+              _storageService.deleteAllData();
+              // ignore: use_build_context_synchronously
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  LoginScreen.routeName, (Route<dynamic> route) => false);
             },
             child: const Padding(
               padding: EdgeInsets.only(right: 15.0),
